@@ -1,7 +1,7 @@
 version: 2.1
 
 description: >
-  Sample orb description
+  This circle ci orb is used to cache docker images in circle ci.
 # What will your orb allow users to accomplish?
 # Descriptions should be short, simple, and informative.
 
