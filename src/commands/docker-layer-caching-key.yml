@@ -1,12 +1,12 @@
-description: >
-  This command creates a cache of the current directory.
-  It will be used to speed up future builds.
+# description: >
+#   This command creates a cache of the current directory.
+#   It will be used to speed up future builds.
 
-steps:
-  - run:
-      name: Check if there are newer base images on Docker Hub
-      command: <<include(scripts/docker-cache-key.sh)>>
-  - save_cache:
-      key: docker-layers-cache-{{ checksum "docker-layer-caching-key.txt" }}
-    paths:
-      - ~/docker-caches
+# steps:
+#   - run:
+#       name: Check if there are newer base images on Docker Hub
+#       command: <<include(scripts/docker-cache-key.sh)>>
+#   - save_cache:
+#       key: docker-layers-cache-{{ checksum "docker-layer-caching-key.txt" }}
+#     paths:
+#       - ~/docker-caches
