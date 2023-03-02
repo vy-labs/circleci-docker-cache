@@ -9,4 +9,4 @@ steps:
   - save_cache:
       key: docker-layers-cache-{{ checksum "docker-layer-caching-key.txt" }}
     paths:
-      - ~/docker-caches/
+      - ~/docker-caches
