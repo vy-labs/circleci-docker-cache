@@ -1,0 +1,16 @@
+description: >
+  This command generates docker cache key
+parameters:
+  key:
+    type: string
+    default: docker-layer-caching-key-{{ checksum "/tmp/docker-layer-caching-key.txt" }}
+    description: "Cache key"
+  paths:
+    type: string
+    default: /tmp/docker-layer-caching-key.txt
+    description: "Cache paths"
+steps:
+  - save_cache:
+      key: <<parameters.key>>
+      paths:
+        - <<parameters.paths>>

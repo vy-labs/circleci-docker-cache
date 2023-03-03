@@ -1,0 +1,6 @@
+description: >
+  Install scopeo package in linux
+steps:
+  - run:
+      name: install skopeo
+      command: <<include(scripts/install-skopeo.sh)>>
