@@ -1,0 +1,10 @@
+description: >
+  This command restores docker cache
+parameters:
+  key:
+    type: string
+    default: docker-layer-caching-key-{{ checksum "/tmp/docker-layer-caching-key.txt" }}
+    description: "Cache key to restore"
+steps:
+  - restore_cache:
+      key: <<parameters.key>>
