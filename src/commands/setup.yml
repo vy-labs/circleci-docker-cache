@@ -19,3 +19,11 @@ steps:
         DOCKERFILE: <<parameters.DOCKERFILE_PATH>>
       name: docker cache key
       command: <<include(scripts/docker-cache.sh)>>
+  - run:
+      name: generate checksum for lock file
+      command: <<include(scripts/checksum-lock.sh)>>
+  - run:
+      name: generate checksum key
+      command: checksum_key=$(cat /tmp/checksum_key)
+      environment:
+        CHECKSUM_KEY: $checksum_key
