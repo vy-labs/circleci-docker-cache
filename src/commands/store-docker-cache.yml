@@ -9,17 +9,16 @@ parameters:
     type: string
     default: /tmp/docker-layer-caching-key.txt
     description: "Cache paths"
+  lock_file:
+    type: string
+    default: "poetry.lock"
+    description: "Path to lock file"
 steps:
-  - run:
-      name: get checksum key
-      command: checksum_key=$(cat /tmp/checksum_key)
-      environment:
-        CHECKSUM_KEY: $checksum_key
-  - save_cache:
-      key: <<parameters.key_docker>>
-      paths:
-        - <<parameters.paths>>
-  - save_cache:
-      key: <<parameters.key_docker>>-{{ .Environment.CHECKSUM_KEY }}
-      paths:
-        - <<parameters.paths>>
+    - save_cache:
+        key: <<parameters.key_docker>>
+        paths:
+          - <<parameters.paths>>
+    - save_cache:
+        key: <<parameters.key_docker>>-{{ checksum "<<parameters.lock_file>>" }}
+        paths:
+          - <<parameters.paths>>
