@@ -1,0 +1,21 @@
+description: >
+  This command generates docker cache key
+parameters:
+  LANGUAGE:
+    type: string
+    default: "python"
+    description: "Language to use"
+  DOCKERFILE_PATH:
+    type: string
+    default: "docker/Dockerfile"
+    description: "Path to Dockerfile"
+steps:
+  - run:
+      name: install skopeo
+      command: <<include(scripts/install-skopeo.sh)>>
+  - run:
+      environment:
+        LANGUAGE: <<parameters.LANGUAGE>>
+        DOCKERFILE: <<parameters.DOCKERFILE_PATH>>
+      name: docker cache key
+      command: <<include(scripts/docker-cache.sh)>>
