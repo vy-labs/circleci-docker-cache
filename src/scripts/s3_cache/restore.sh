@@ -1,13 +1,13 @@
-# !/bin/bash
+#!/bin/bash
 
 # inputs
 # - BUCKET_NAME
 # - KEY
 
 # Set the S3 bucket name and directory path
-S3_BUCKET_NAME="${BUCKET_NAME}"
-S3_DIRECTORY_PATH="dl_key_cache/"
-PREFIX="${KEY}"
+S3_BUCKET_NAME=${BUCKET_NAME}
+S3_DIRECTORY_PATH=dl_key_cache/
+PREFIX=${KEY}
 
 # add trailing slash if not present
 S3_DIRECTORY_PATH=${S3_DIRECTORY_PATH%/}/
