@@ -59,7 +59,7 @@ RESULT=$LATEST_DIRECTORY_NAME-$LATEST_DIRECTORY_TIMESTAMP
 
 # save path.txt value to a variable named RESULT_PATH
 url="s3://$S3_BUCKET_NAME/$S3_DIRECTORY_PATH$RESULT""path.txt"
-RESULT_PATH=$(aws s3 cp $url -)
+RESULT_PATH=$(aws s3 cp "$url" -)
 
 # download $RESULT in $RESULT_PATH
-aws s3 cp s3://$S3_BUCKET_NAME/$S3_DIRECTORY_PATH$RESULT $RESULT_PATH --recursive
+aws s3 cp s3://"$S3_BUCKET_NAME"/$S3_DIRECTORY_PATH"$RESULT" "$RESULT_PATH" --recursive
