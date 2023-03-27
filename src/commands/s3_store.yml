@@ -17,5 +17,5 @@ steps:
         BUCKET_NAME: <<parameters.bucket_name>>
         KEY: <<parameters.key>>
         DIR: <<parameters.dir>>
-      name: Restore s3 cache
+      name: Store s3 cache
       command: <<include(scripts/s3_cache/store.sh)>>
