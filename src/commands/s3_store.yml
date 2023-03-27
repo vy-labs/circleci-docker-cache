@@ -1,0 +1,21 @@
+description: >
+  This command finds the latest s3 cache and restores it to specified path during store
+parameters:
+  bucket_name:
+    type: string
+    default: "859747976171-docker-cache"
+    description: "Bucket name"
+  key:
+    type: string
+    description: "Cache key to restore"
+  dir:
+    type: string
+    description: "Directory to restore cache to"
+steps:
+  - run:
+      environment:
+        BUCKET_NAME: <<parameters.bucket_name>>
+        KEY: <<parameters.key>>
+        DIR: <<parameters.dir>>
+      name: Restore s3 cache
+      command: <<include(scripts/s3_cache/store.sh)>>
