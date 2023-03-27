@@ -31,6 +31,12 @@ timestamp=$(date +%s)
 # remove hyphen at the ending of key if exists
 KEY=${KEY%-}
 
+# check if $KEY-- exists in s3 directory
+if aws s3 ls s3://"${S3_BUCKET_NAME}"/${S3_DIRECTORY_PATH}"${KEY}"--*; then
+  echo "${KEY}"--* exists in s3.
+  exit 0
+fi
+
 # key with timestamp
 KEY_TIMESTAMP=${KEY}--${timestamp}
 
