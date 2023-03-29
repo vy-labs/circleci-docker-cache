@@ -7,20 +7,26 @@
 # Set the S3 bucket name and directory path
 S3_BUCKET_NAME=${BUCKET_NAME}
 S3_DIRECTORY_PATH=CACHE_DIRECTORY/
-PREFIX=${SOURCE}
+PREFIXS=${SOURCE}
 
 # add trailing slash if not present
 S3_DIRECTORY_PATH=${S3_DIRECTORY_PATH%/}/
 
-# Fetch all directories in the S3 directory matching the prefix
-S3_DIRECTORY_NAMES=$(aws s3api list-objects-v2 \
-    --bucket "$S3_BUCKET_NAME" \
-    --prefix "$S3_DIRECTORY_PATH$PREFIX" \
-    --delimiter / \
-    --query 'CommonPrefixes[].Prefix' \
-    --output text \
-    --region us-east-1)
 
+for PRE in $PREFIXS; do
+    # Fetch all directories in the S3 directory matching the prefix
+    S3_DIRECTORY_NAMES=$(aws s3api list-objects-v2 \
+        --bucket "$S3_BUCKET_NAME" \
+        --prefix "$S3_DIRECTORY_PATH$PRE" \
+        --delimiter / \
+        --query 'CommonPrefixes[].Prefix' \
+        --output text \
+        --region us-east-1)
+
+    if [[ "$S3_DIRECTORY_NAMES" != 'None' ]]; then
+        break
+    fi
+done
 
 # Remove any directories that don't have a "path.txt" file
 VALID_DIRECTORIES=""
