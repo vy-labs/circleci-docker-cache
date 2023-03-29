@@ -28,20 +28,14 @@ workflows:
           enable-pr-comment: false
           # Use a context to hold your publishing token.
           context: orb-publishing
-          filters: *filters
-          when:
-            # Only publish if the pipeline is triggered by a commit to master.
-            condition:
-              and:
-                - << pipeline.git.branch >> == "master"
+          filters:
+            branches:
+              ignore: master
+            tags:
+              only: /^v[0-9]+\.[0-9]+\.[0-9]+$/
       # Triggers the next workflow in the Orb Development Kit.
       - orb-tools/continue:
           pipeline-number: << pipeline.number >>
           vcs-type: << pipeline.project.type >>
           requires: [orb-tools/publish]
           filters: *filters
-          when:
-            # Only publish if the pipeline is triggered by a commit to master.
-            condition:
-              and:
-                - << pipeline.git.branch >> == "master"
