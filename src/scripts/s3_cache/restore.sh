@@ -2,12 +2,12 @@
 
 # inputs
 # - BUCKET_NAME
-# - KEY
+# - SOURCE
 
 # Set the S3 bucket name and directory path
 S3_BUCKET_NAME=${BUCKET_NAME}
-S3_DIRECTORY_PATH=dl_key_cache/
-PREFIX=${KEY}
+S3_DIRECTORY_PATH=CACHE_DIRECTORY/
+PREFIX=${SOURCE}
 
 # add trailing slash if not present
 S3_DIRECTORY_PATH=${S3_DIRECTORY_PATH%/}/
@@ -25,8 +25,8 @@ S3_DIRECTORY_NAMES=$(aws s3api list-objects-v2 \
 # Remove any directories that don't have a "path.txt" file
 VALID_DIRECTORIES=""
 for DIR in $S3_DIRECTORY_NAMES; do
-    OBJECT_KEY="$DIR""path.txt"
-    exists=$(aws s3 ls "s3://$S3_BUCKET_NAME/$OBJECT_KEY" --region us-east-1)
+    OBJECT_SOURCE="$DIR""path.txt"
+    exists=$(aws s3 ls "s3://$S3_BUCKET_NAME/$OBJECT_SOURCE" --region us-east-1)
     if [[ -n "$exists" ]]; then
         VALID_DIRECTORIES+="$DIR"$'\n'
     fi

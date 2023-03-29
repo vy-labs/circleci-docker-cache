@@ -1,11 +1,14 @@
 description: >
-  This command finds the latest s3 cache and restores it to specified path during store
+  This command stores the cache to s3 if the cache is not already stored
 parameters:
+  aws_region:
+    type: string
+    description: "AWS region"
+    default: "us-east-1"
   bucket_name:
     type: string
-    default: "859747976171-docker-cache"
     description: "Bucket name"
-  key:
+  source:
     type: string
     description: "Cache key to restore"
   dir:
@@ -15,7 +18,8 @@ steps:
   - run:
       environment:
         BUCKET_NAME: <<parameters.bucket_name>>
-        KEY: <<parameters.key>>
+        SOURCE: <<parameters.source>>
         DIR: <<parameters.dir>>
+        AWS_REGION: <<parameters.aws_region>>
       name: Store s3 cache
       command: <<include(scripts/s3_cache/store.sh)>>

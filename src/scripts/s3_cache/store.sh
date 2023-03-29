@@ -2,25 +2,22 @@
 
 # inputs
 # - BUCKET_NAME
-# - KEY
+# - SOURCE
 # - DIR
 
 # Set the S3 bucket name and directory path
 S3_BUCKET_NAME=${BUCKET_NAME}
-S3_DIRECTORY_PATH=dl_key_cache/
+S3_DIRECTORY_PATH=CACHE_DIRECTORY/
 
 # add trailing slash if not present
 S3_DIRECTORY_PATH=${S3_DIRECTORY_PATH%/}/
 
-# Set the prefix to search for (e.g. "key1-key2")
-# KEY=${KEY}
+# Set the prefix to search for (e.g. "source1-source2")
+# SOURCE=${SOURCE}
 PATH_=${DIR}
 
-# remove / at the ending of PATH_ if exists
-PATH_=${PATH_%/}
-
 # check if path exists
-if [ ! -d "${PATH_}" ]; then
+if [ ! -e "${PATH_}" ]; then
   echo "${PATH_}" does not exist.
   exit 0
 fi
@@ -28,17 +25,17 @@ fi
 # echo current timestamp
 timestamp=$(date +%s)
 
-# remove hyphen at the ending of key if exists
-KEY=${KEY%-}
+# remove hyphen at the ending of SOURCE if exists
+SOURCE=${SOURCE%-}
 
-# check if $KEY-- exists in s3 directory
-if aws s3 ls s3://"${S3_BUCKET_NAME}"/${S3_DIRECTORY_PATH}"${KEY}"--*; then
-  echo "${KEY}"--* exists in s3.
+# check if $SOURCE-- exists in s3 directory
+if aws s3 ls s3://"${S3_BUCKET_NAME}"/${S3_DIRECTORY_PATH}"${SOURCE}"--*; then
+  echo "${SOURCE}"--* exists in s3.
   exit 0
 fi
 
-# key with timestamp
-KEY_TIMESTAMP=${KEY}--${timestamp}
+# SOURCE with timestamp
+KEY_TIMESTAMP=${SOURCE}--${timestamp}
 
 echo s3://"${S3_BUCKET_NAME}"/${S3_DIRECTORY_PATH}"${KEY_TIMESTAMP}"
 
