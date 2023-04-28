@@ -3,6 +3,7 @@
 # inputs
 # - BUCKET_NAME
 # - SOURCE
+# - DIR
 
 # Set the S3 bucket name and directory path
 S3_BUCKET_NAME=${BUCKET_NAME}
