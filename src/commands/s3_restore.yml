@@ -11,11 +11,16 @@ parameters:
   source:
     type: string
     description: "Cache key to restore"
+  dir:
+    type: string
+    description: "Directory to restore cache to"
+    default: ""
 steps:
   - run:
       environment:
         AWS_REGION: <<parameters.aws_region>>
         BUCKET_NAME: <<parameters.bucket_name>>
         SOURCE: <<parameters.source>>
+        DIR: <<parameters.dir>>
       name: Restore s3 cache
       command: <<include(scripts/s3_cache/restore.sh)>>

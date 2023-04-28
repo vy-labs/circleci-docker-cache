@@ -68,4 +68,9 @@ url="s3://$S3_BUCKET_NAME/$S3_DIRECTORY_PATH$RESULT""path.txt"
 RESULT_PATH=$(aws s3 cp "$url" -)
 
 # download $RESULT in $RESULT_PATH
-aws s3 cp s3://"$S3_BUCKET_NAME"/$S3_DIRECTORY_PATH"$RESULT" "$RESULT_PATH" --recursive
+if [[ -n "$DIR" ]];
+then
+    aws s3 cp s3://"$S3_BUCKET_NAME"/$S3_DIRECTORY_PATH"$RESULT" "$DIR" --recursive
+else
+    aws s3 cp s3://"$S3_BUCKET_NAME"/$S3_DIRECTORY_PATH"$RESULT" "$RESULT_PATH" --recursive
+fi
