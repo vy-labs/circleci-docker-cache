@@ -7,13 +7,13 @@
 # Set the S3 bucket name and directory path
 S3_BUCKET_NAME=${BUCKET_NAME}
 S3_DIRECTORY_PATH=CACHE_DIRECTORY/
-PREFIXS=${SOURCE}
+PREFIXES=${SOURCE}
 
 # add trailing slash if not present
 S3_DIRECTORY_PATH=${S3_DIRECTORY_PATH%/}/
 
 
-for PRE in $PREFIXS; do
+for PRE in $PREFIXES; do
     # Fetch all directories in the S3 directory matching the prefix
     S3_DIRECTORY_NAMES=$(aws s3api list-objects-v2 \
         --bucket "$S3_BUCKET_NAME" \
